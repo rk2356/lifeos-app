@@ -1,0 +1,16 @@
+{
+  "app": "LifeOS",
+  "package": "com.lifeos.app",
+  "versionCode": 20100,
+  "versionName": "2.1.0",
+  "apk": "apk/LifeOS-2.1.0-20100.apk",
+  "sha256": "29932e8ed932923967c04d620802fbd4d1fdeb27f044f302421ff99eabdafb6f",
+  "size": 2789090,
+  "minSdk": 24,
+  "notes": "• LifeOS 2.1.0 — in-app app updates (APK auto-build with GitHub Actions)",
+  "notify": true,
+  "web": "2.1.0",
+  "date": "2026-10-18T18:29:06Z",
+  "commit": "e7d39fbb40490f6f48ba64a2a62756ed83a08afd",
+  "cert": "cc678f24f1752f679272df9415a40ef0d07a0f0122018a01134e911fe727367d"
+}

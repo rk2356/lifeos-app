@@ -1,0 +1,12 @@
+[
+  {
+    "versionCode": 20100,
+    "versionName": "2.1.0",
+    "apk": "apk/LifeOS-2.1.0-20100.apk",
+    "sha256": "29932e8ed932923967c04d620802fbd4d1fdeb27f044f302421ff99eabdafb6f",
+    "size": 2789090,
+    "date": "2026-10-18T18:29:06Z",
+    "notes": "• LifeOS 2.1.0 — in-app app updates (APK auto-build with GitHub Actions)",
+    "commit": "e7d39fbb40490f6f48ba64a2a62756ed83a08afd"
+  }
+]

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LifeOS for Android — download</title>
+<meta name="description" content="Download the LifeOS Android app (APK). Updates install from inside the app.">
+<meta name="theme-color" content="#0C0C0F">
+<meta name="robots" content="noindex">
+<link rel="icon" href="icon.png">
+<style>
+  :root { --bg:#F6F6F3; --surface:#FFFFFF; --text:#16161B; --muted:#6B6B76; --line:#E4E4DF; --accent:#5B5BD6; --accent-text:#FFFFFF; --soft:#EEEEFB; --ok:#1F8A4C; --warn:#9A5B00; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0C0C0F; --surface:#141418; --text:#EDEDF0; --muted:#9A9AA6; --line:#26262D; --accent:#7070F0; --accent-text:#FFFFFF; --soft:#1C1C2B; --ok:#4CC27E; --warn:#E0A440; } }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, Inter, sans-serif; -webkit-text-size-adjust: 100%; }
+  main { max-width: 640px; margin: 0 auto; padding: 28px 18px 48px; }
+  header { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+  header img { width: 56px; height: 56px; border-radius: 14px; }
+  h1 { font-size: 24px; line-height: 1.2; margin: 0; }
+  h2 { font-size: 17px; margin: 0 0 10px; }
+  .sub { color: var(--muted); font-size: 14px; margin: 2px 0 0; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin: 0 0 14px; }
+  .ver { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; margin-bottom: 14px; }
+  .ver b { font-size: 20px; }
+  .meta { color: var(--muted); font-size: 14px; }
+  .btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 52px; padding: 12px 18px; border-radius: 12px; background: var(--accent); color: var(--accent-text); font-weight: 650; font-size: 17px; text-decoration: none; border: 0; }
+  .btn[aria-disabled="true"] { opacity: .5; pointer-events: none; }
+  .hint { background: var(--soft); border-radius: 12px; padding: 12px 14px; font-size: 14.5px; margin-top: 14px; }
+  ol { margin: 0; padding-left: 22px; } li { margin: 6px 0; }
+  .notes { white-space: pre-wrap; font-size: 14.5px; margin: 12px 0 0; }
+  .sha { font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); word-break: break-all; margin-top: 12px; }
+  .old { list-style: none; padding: 0; margin: 0; }
+  .old li { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); margin: 0; font-size: 14.5px; }
+  .old li:first-child { border-top: 0; }
+  .old a { color: var(--accent); text-decoration: none; font-weight: 600; white-space: nowrap; }
+  .warn { color: var(--warn); }
+  .err { color: var(--warn); font-size: 14.5px; }
+  footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 22px; }
+  code { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="icon.png" alt="" width="56" height="56">
+    <div>
+      <h1>LifeOS for Android</h1>
+      <p class="sub">Your planner, notes &amp; files — as an app</p>
+    </div>
+  </header>
+
+  <section class="card" id="latest">
+    <div class="ver"><b id="v">Loading…</b><span class="meta" id="m"></span></div>
+    <a class="btn" id="dl" href="LifeOS.apk" aria-disabled="true">⬇ Download APK</a>
+    <div class="hint" id="inapp">📲 <b>Already have LifeOS?</b> You don’t need this page — open the app → <b>Settings → App &amp; updates</b> → <b>Download &amp; install</b>. New versions also show up there by themselves.</div>
+    <p class="notes" id="notes" hidden></p>
+    <div class="sha" id="sha"></div>
+    <p class="err" id="err" hidden></p>
+  </section>
+
+  <section class="card">
+    <h2>First-time install</h2>
+    <ol>
+      <li>Tap <b>Download APK</b> above and open the file when it finishes.</li>
+      <li>If Android asks, allow <b>Install unknown apps</b> for your browser (one time).</li>
+      <li>Tap <b>Install</b>. Done — from now on updates install from inside LifeOS.</li>
+    </ol>
+    <div class="hint">If Android says <i>“App not installed”</i> or <i>“conflicts with an existing package”</i>, an older LifeOS signed with a different key is installed. Sync / back up your data, uninstall that old app once, then install this one.</div>
+  </section>
+
+  <section class="card" id="history" hidden>
+    <h2>Earlier versions</h2>
+    <ul class="old" id="old"></ul>
+  </section>
+
+  <footer>Built automatically with GitHub Actions · <a href="update.json" style="color:inherit">update.json</a></footer>
+</main>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  function size(n) { return n > 0 ? (n / 1048576).toFixed(1) + ' MB' : ''; }
+  function day(s) {
+    var d = s ? new Date(s) : null;
+    return d && !isNaN(d) ? d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+  }
+  function get(name) {
+    return fetch(name + '?t=' + Date.now(), { cache: 'no-store' }).then(function (r) {
+      if (!r.ok) throw new Error(name + ': HTTP ' + r.status);
+      return r.json();
+    });
+  }
+  get('update.json').then(function (u) {
+    $('v').textContent = 'LifeOS ' + (u.versionName || u.versionCode);
+    $('m').textContent = [day(u.date), size(u.size), 'Android 7+'].filter(Boolean).join(' · ');
+    var dl = $('dl');
+    dl.href = u.apk || 'LifeOS.apk';
+    dl.setAttribute('download', 'LifeOS-' + (u.versionName || u.versionCode) + '.apk');
+    dl.removeAttribute('aria-disabled');
+    if (u.notes) { $('notes').textContent = u.notes; $('notes').hidden = false; }
+    if (u.sha256) $('sha').textContent = 'SHA-256 ' + u.sha256 + ' · build ' + u.versionCode;
+    return get('releases.json').then(function (list) {
+      var ul = $('old'), n = 0;
+      (Array.isArray(list) ? list : []).forEach(function (r) {
+        if (!r || r.versionCode === u.versionCode) return;
+        var li = document.createElement('li');
+        var t = document.createElement('span');
+        t.textContent = (r.versionName || r.versionCode) + ' (build ' + r.versionCode + ')' + (r.date ? ' · ' + day(r.date) : '');
+        li.appendChild(t);
+        if (r.apk) {
+          var a = document.createElement('a');
+          a.href = r.apk; a.textContent = 'Download';
+          a.setAttribute('download', 'LifeOS-' + (r.versionName || r.versionCode) + '.apk');
+          li.appendChild(a);
+        } else {
+          var s = document.createElement('span'); s.className = 'meta'; s.textContent = 'removed'; li.appendChild(s);
+        }
+        ul.appendChild(li); n++;
+      });
+      if (n) $('history').hidden = false;
+    }).catch(function () { /* history is optional */ });
+  }).catch(function (e) {
+    $('v').textContent = 'No app version published yet';
+    $('err').textContent = 'The first APK appears here after GitHub Actions builds it. (' + e.message + ')';
+    $('err').hidden = false;
+  });
+})();
+</script>
+</body>
+</html>
